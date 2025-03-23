@@ -29,35 +29,36 @@
                 </div>
                 <button type="submit" class="btn btn-primary">Thêm sản phẩm</button>
             </form>
-            
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>STT</th>
-                        <th>MaSP</th>
-                        <th>Ten SP</th>
-                        <th>So Luong</th>
-                        <th>Hinh anh</th>
-                        <th>Chon</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% for (let i = 0; i < sanPhams.length; i++) { %>
+            <form id="delete" method="POST" action="/delete" enctype="multipart/form-data">
+                <table class="table">
+                    <thead>
                         <tr>
-                            <td><%= i + 1 %></td>
-                            <td><%= sanPhams[i].Id %></td>
-                            <td><%= sanPhams[i].product_name %></td>
-                            <td><%= sanPhams[i].quantity %></td>
-                            <!-- <td>
-                                <img src="<%= sanPhams[i].hinh_anh %>" alt="Hình ảnh sản phẩm" width="50">
-                            </td>
-                            <td>
-                                <input type="checkbox" name="chon" value="<%= sanPhams[i].ma_sp %>">
-                            </td> -->
+                            <th>STT</th>
+                            <th>Mã SP</th>
+                            <th>Tên SP</th>
+                            <th>Số Lượng</th>
+                            <th>Hình ảnh</th>
+                            <th>Chọn</th>
                         </tr>
-                    <% } %>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <% for (let i = 0; i < sanPhams.length; i++) { %>
+                            <tr>
+                                <td><%= i + 1 %></td>
+                                <td><%= sanPhams[i].Id %></td>
+                                <td><%= sanPhams[i].product_name %></td>
+                                <td><%= sanPhams[i].quantity %></td>
+                                <td></td>
+                                <td>
+                                    <input type="checkbox" name="chon[]" value="<%= sanPhams[i].Id %>">
+                                </td> 
+                            </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+                <button type="submit" class="btn btn-danger">Xóa sản phẩm</button>
+            </form>
+            
         </div>
     </div>
 </body>

@@ -11,7 +11,7 @@ app.set('views', 'src/views')
 
 // Chuyen sang dung AWS SDK v3 boi vi AWS SDK v2 khong ho tro version moi nhat cua NodeJS
 const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
-const { DynamoDBDocumentClient, ScanCommand, PutCommand } = require("@aws-sdk/lib-dynamodb");
+const { DynamoDBDocumentClient, ScanCommand, PutCommand, DeleteCommand } = require("@aws-sdk/lib-dynamodb");
 const multer = require('multer');
 const upload = multer();
 
@@ -82,6 +82,37 @@ app.post('/', upload.fields([]),async (req, res) =>  {
         res.status(500).send('Internal Server Error');
     }
 })
+
+// Xóa sản phẩm
+app.post('/delete', upload.fields([]), async (req, res) => {
+    let listItems = req.body.chon; // Lấy danh sách sản phẩm được chọn
+
+    if (!listItems) {
+        return res.redirect("/"); // Nếu không chọn sản phẩm nào thì quay về
+    }
+
+    // Nếu chỉ chọn một sản phẩm, `listItems` có thể là string, cần chuyển thành mảng
+    if (!Array.isArray(listItems)) {
+        listItems = [listItems];
+    }
+
+    try {
+        for (const Id of listItems) {
+            const params = {
+                TableName: tableName,
+                Key: { Id: Id }
+            };
+
+            await docClient.send(new DeleteCommand(params));
+        }
+
+        res.redirect("/");
+    } catch (error) {
+        console.error("Delete Error:", error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
 
 app.listen(3000, () => {
     console.log('server is running on port 3000')
