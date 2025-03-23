@@ -55,8 +55,6 @@ app.get('/', async (req, res) =>  {
         res.status(500).send('Internal Server Error');
     }
 })
-
-
 //Thêm sản phẩm
 app.post('/', upload.fields([]),async (req, res) =>  {
     try {
