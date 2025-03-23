@@ -1,0 +1,27 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.text {
+    color: red;
+    text-align: center;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse; /* Removes space between borders */
+  }
+  thead th {
+    background-color: #2bb110; /* Light background for headers */
+  }
+  
+  th, td {
+    border: 1px solid #000;
+    padding: 10px;
+    text-align: left; /* Aligns text to the left */
+  }
+  
+  th {
+    background-color: #f4f4f4; /* Light background for headers */
+  }
